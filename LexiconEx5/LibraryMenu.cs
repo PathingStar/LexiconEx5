@@ -13,13 +13,15 @@ namespace LexiconEx5
     {
         public static void Start()
         {
-            File.WriteAllText("TestBook.json", JsonSerializer.Serialize(new BookRecord("test","t",1,"c")));
+            
             Library lib;
-            try { lib = JsonSerializer.Deserialize<Library>(File.ReadAllText("Library.json"));
+            try { lib = JsonSerializer.Deserialize<Library>(File.ReadAllText("Library.json"), new JsonSerializerOptions {  IncludeFields = true });
                 lib.Logout();
                 Console.WriteLine("secsesful loded Libery");
             }
-            catch { lib = new Library(); }
+            catch(Exception e) { lib = new Library();
+                Console.WriteLine(e.Message);
+            }
             char input = ' '; //Creates the character input to be used with the switch-case below.
             string inputS;
             while (true)

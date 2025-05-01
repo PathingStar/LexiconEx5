@@ -12,7 +12,7 @@ namespace LibraryLibrary
         public string Name { get; set; }
 
         public string Password {  get; set; }
-        internal List<Book> LoandBooks { get; set; }
+        public List<Book> LoandBooks { get; set; }
         public LibraryCard(/*int id,*/ string name, string password) {
             //Id = id;
             Name = name;
