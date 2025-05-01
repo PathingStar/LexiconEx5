@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LibraryLibrary
 {
-    internal class Book
+    [DataContract]
+    public class Book
     {
+        [DataMember]
         string titel;
+        [DataMember]
         string athor;
+        [DataMember]
         int isbn;
+        [DataMember]
         string caregory;
+        [DataMember]
         bool available;
 
         public Book(string t, string a, int i, string c) {

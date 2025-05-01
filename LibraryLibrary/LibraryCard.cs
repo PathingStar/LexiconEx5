@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibraryLibrary
 {
-    internal class LibraryCard
+    public class LibraryCard
     {
         //int Id { get; set; }
         public string Name { get; set; }

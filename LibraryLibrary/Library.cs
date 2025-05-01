@@ -1,33 +1,49 @@
 ﻿namespace LibraryLibrary
 {
+    using System.Text.Json;
     public class Library
     {
         List<Book> books;
-        private List<Book> Books {  get => books;  set => books = value; }
-        private List<LibraryCard> LibraryCards { get; set; }
+       public List<Book> Books {  get => books;  set => books = value; }
+        public List<LibraryCard> LibraryCards { get; set; }
 
         private LibraryCard? LogedInCard { get; set; }
         //private List<int> 
-        public int Count { get=>books.Count;  }
+        public int Count { get; set; }
+        public int UserCount { get; set; }
         public Library() {
             Books = new List<Book>();
             LibraryCards = new List<LibraryCard>();
             LogedInCard = null;
         }
+        public string Serialize()
+        {
+            return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+        }
         #region Book handling
         public bool RemoveBookByTitel(string titel)
         {
-            try { return Books.Remove(Books.Find(b => b.Titel == titel)); }
+            try { bool b= Books.Remove(Books.Find(b => b.Titel == titel));
+                Count = Books.Count;
+                return b;
+            }
             catch { return false; }
-        }public bool RemoveBookByISBN(int isbn)
+           
+        }
+        public bool RemoveBookByISBN(int isbn)
         {
-            try { return Books.Remove(Books.Find(b => b.ISBN == isbn)); }
+            try {
+                bool b = Books.Remove(Books.Find(b => b.ISBN == isbn));
+                Count = Books.Count;
+                return b;
+            }
             catch { return false; }
         }
         public bool AddBook(BookRecord book)
         {
             if (!books.Exists(b => b.ISBN == book.ISBN)){
                 books.Add(new Book(book.Titel, book.Athor,book.ISBN, book.Category));
+                Count = Books.Count;
                 return true;
             }else return false;
         }
@@ -86,6 +102,7 @@
             if (!CheakIfCardExist(name)) {
                 LogedInCard = new LibraryCard(name, password);
                 LibraryCards.Add(LogedInCard);
+                UserCount = LibraryCards.Count();
                 return true;
             }else return false;
         }
@@ -136,6 +153,7 @@
             {
                 LibraryCards.Remove(LogedInCard);
                 LogedInCard=null;
+                UserCount = LibraryCards.Count();
                 return true;
             }else return false;
         }

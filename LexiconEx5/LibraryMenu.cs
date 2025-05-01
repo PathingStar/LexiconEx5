@@ -13,8 +13,12 @@ namespace LexiconEx5
     {
         public static void Start()
         {
+            File.WriteAllText("TestBook.json", JsonSerializer.Serialize(new BookRecord("test","t",1,"c")));
             Library lib;
-            try { lib = JsonSerializer.Deserialize<Library>(File.ReadAllText("Library.json")); }
+            try { lib = JsonSerializer.Deserialize<Library>(File.ReadAllText("Library.json"));
+                lib.Logout();
+                Console.WriteLine("secsesful loded Libery");
+            }
             catch { lib = new Library(); }
             char input = ' '; //Creates the character input to be used with the switch-case below.
             string inputS;
@@ -44,7 +48,7 @@ namespace LexiconEx5
                 {
                     case '1':
 
-                        if (lib.WhoIsLogedin != null) lib.Logout(); else LoginNameCheak();
+                        if (lib.WhoIsLogedin() != null) lib.Logout(); else LoginNameCheak();
 
                         break;
                     case '2':
@@ -68,7 +72,7 @@ namespace LexiconEx5
             }
             void Save()
             {
-                File.WriteAllText("Library.json", JsonSerializer.Serialize(lib));
+                File.WriteAllText("Library.json",lib.Serialize());
             }
             void LoginNameCheak()
             {
@@ -113,6 +117,7 @@ namespace LexiconEx5
                     if (lib.MakeCard(inputS, Console.ReadLine()))
                     {
                         Console.WriteLine($"welcom {inputS}");
+                        Save();
                         break;
                     }
                     else
@@ -143,6 +148,7 @@ namespace LexiconEx5
                         isbn = int.Parse(Console.ReadLine());
                         if (lib.AddBook(new BookRecord(name, ather, isbn, category, true)))
                         {
+                            Save();
                             break;
                         }
                         else throw new Exception();
@@ -282,6 +288,7 @@ namespace LexiconEx5
                         if (lib.BorrowBook(int.Parse(inputS)))
                         {
                             Console.WriteLine("you borrowed " + lib.GetBook(int.Parse(inputS)));
+                            Save();
                             break;
                         }
                         else throw new Exception();
@@ -307,6 +314,7 @@ namespace LexiconEx5
                         if (lib.RemoveBookByISBN(int.Parse(inputS)))
                         {
                             Console.WriteLine("you have removed" + rBook);
+                            Save();
                             break;
                         }
                         else throw new Exception();
