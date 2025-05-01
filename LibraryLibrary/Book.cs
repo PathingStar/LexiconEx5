@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +9,7 @@ namespace LibraryLibrary
     
     public class Book
     {
-         public string Titel { get; set; }
+        public string Titel { get; set; }
         public string Athor { get ; set ; }
         public int ISBN { get; set; }
         public string Caregory { get; set; }

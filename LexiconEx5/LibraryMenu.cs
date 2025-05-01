@@ -99,7 +99,7 @@ namespace LexiconEx5
             {
                 while (true)
                 {
-                    Console.Write("User Name: ");
+                    Console.Write("User Password: ");
                     inputS = Console.ReadLine();
                     if (lib.LoginOnCard(name, inputS))
                     {
