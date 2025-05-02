@@ -21,6 +21,7 @@ namespace LexiconEx5
             }
             catch(Exception e) { lib = new Library();
                 Console.WriteLine(e.Message);
+                File.WriteAllText("Error.text",e.Message);
             }
             char input = ' '; //Creates the character input to be used with the switch-case below.
             string inputS;

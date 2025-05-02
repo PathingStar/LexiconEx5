@@ -18,7 +18,7 @@
         }
         public string Serialize()
         {
-            return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true, IncludeFields=true });
+            return JsonSerializer.Serialize(this);
         }
         #region Book handling
         public bool RemoveBookByTitel(string titel)
